@@ -1,0 +1,110 @@
+<head>
+    <style type="text/css">
+        a { text-decoration:none; color : blue;}
+
+        *{
+            margin: 0px;
+            padding: 0px;
+            text-decoration: none;
+            font-family:sans-serif;
+        }
+
+        body {
+            background-color: grey;
+        }
+
+        .loginForm {
+            position:absolute;
+            width:500px;
+            height:700px;
+            padding: 30px, 20px;
+            background-color:#FFFFFF;
+            text-align:left;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            border-radius: 15px;
+        }
+
+        .loginForm h2{
+          text-align: center;
+          margin: 30px;
+        }
+
+        .idForm{
+            border-bottom: 2px solid #adadad;
+            margin: 30px;
+            padding: 10px 10px;
+        }
+
+        .id {
+            width: 100%;
+            border:none;
+            outline:none;
+            color: #636e72;
+            font-size:16px;
+            height:25px;
+            background: none;
+        }
+
+        .btn {
+            position:relative;
+            left:40%;
+            transform: translateX(-50%);
+            margin-bottom: 40px;
+            width:80%;
+            height:40px;
+            background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+            background-position: left;
+            background-size: 200%;
+            color:white;
+            font-weight: bold;
+            border:none;
+            cursor:pointer;
+            transition: 0.4s;
+            display:inline;
+        }
+
+        .btn:hover {
+            background-position: right;
+        }
+
+        .bottomText {
+            text-align: center;
+        }
+    </style>
+</head>
+{% block content %}
+<div class="container my-3">
+    <form method="post" class="loginForm">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <h2>Sign up</h2>
+        <div class="idForm">
+            <label for="username" >아이디를 입력하세요.</label>
+            <input type="text" class="id" name="username" id="username" placeholder="Enter the ID to join."
+                   value="{{ form.username.value|default_if_none:'' }}">
+        </div>
+        <div class="idForm">
+            <label for="password1">비밀번호를 입력하세요.</label>
+            <input type="password" class="id" name="password1" id="password1" placeholder="Please enter a password."
+                   value="{{ form.password1.value|default_if_none:'' }}">
+        </div>
+        <div class="idForm">
+            <label for="password2">비밀번호를 다시한번 입력하세요.</label>
+            <input type="password" class="id" name="password2" id="password2" placeholder="Please re-enter your password."
+                   value="{{ form.password2.value|default_if_none:'' }}">
+        </div>
+        <div class="idForm">
+            <label for="email">이메일을 입력하세요.</label>
+            <input type="text" class="id" name="email" id="email" placeholder="Please enter your email."
+                   value="{{ form.email.value|default_if_none:'' }}">
+        </div>
+
+        <div class="bottomText">
+            <button type="submit" class="btn">생성하기</button>
+            <div>또는 <a href="{% url 'login' %}">로그인</a> 하세요.</div>
+        </div>
+    </form>
+</div>
+{% endblock %}

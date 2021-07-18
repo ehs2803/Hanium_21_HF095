@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Don't sleep - webcam</title>
+  {% load static %}
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+
+  <link href="{% static 'css/small-business.css' %}" rel="stylesheet">
+
+
+  <style>
+    .all{
+      background : white;
+      margin : 30px;
+      height : 800px;
+    }
+    .stw{
+      position : absolute;
+      width : 350px;
+	  height : 150px;
+	  left : 820px;
+	  top : 450px;
+    }
+	.cam{
+	   position : absolute;
+	   width : 650px;
+	   height : 550px;
+	   top : 120px;
+	   left : 70px;
+	}
+	.warn{
+	  position : absolute;
+	  width : 500px;
+	  height : 130px;
+	  top : 700px;
+	  left : 80px;
+	}
+	.clock{
+	   position : absolute;
+	   width : 300px;
+	   height : 300px;
+	   top : 120px;
+	   left : 810px;
+	}
+	.scheduler{
+	   position : absolute;
+	   width : 500px;
+	   height : 500px;
+	   top : 120px;
+	   left : 1200px;
+	}
+    input[type="text, time"] {
+	   width:370px;
+	   float:left;
+	   height:30px;
+	   padding-left:30px;
+    }
+    button {
+	   width:90px;
+	   height:30px;
+	   margin-left: 30px;
+	   background:#222;
+	   color:#fff;
+	   border:none;
+    }
+    .tempclass{
+      margin: 5px;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 25px;
+      font: 80px;
+    }
+    .lsclass{
+      height: 50px;
+    }
+    .clock { width: 300px; height: 300px; margin: auto; padding-top: 75px; background: grey; text-align: center; }
+    .clock .time_box { width: 100%; padding-left: 10px; }
+    .clock span { color: #fff; }
+    .txt_lg { font-size: 75px; }
+    .txt_sm { font-size: 20px; }
+    .date_box { font-size: 15px; }
+    #day { display: block; margin-top: 5px; }
+    .mark { background: grey; display: inline-block; vertical-align: top; height: 100px; margin-left: 1px; line-height: 94px; font-size: 55px; }
+    .mark02 { display: inline-block; margin-left: -3px; }
+  </style>
+</head>
+
+
+<body style="background-color:#ffdbdb">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'main' %}">Task Manager</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'main' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Mypage</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="all">
+  <div class="cam">
+  <img src="{% url 'sleep_detector' %}">
+  </div>
+
+  <div class="stw">
+    <div>
+      <h2>Stop watch</h2>
+      <span id="postTestMin">00</span><!-- 분 -->
+      <span>:</span>
+      <span id="postTestSec">00</span><!--초-->
+      <span>.</span>
+      <span id="postTestMilisec">00</span><!--밀리초-->
+    </div>
+
+    <div>
+      <ul id="testRecordList"></ul><!--중간 기록할 리스트-->
+    </div>
+
+    <div>
+      <button type="button" id="testStartBtn">START</button><!--시작/재시작/기록 버튼-->
+      <button type="button" id="testStopBtn">STOP</button><!--스톱 버튼-->
+    </div>
+  </div>
+
+  <div class="clock">
+    <div class="time_box">
+      <span class="txt_lg" id="hours"></span>
+      <span class="mark">:</span>
+      <span class="txt_lg" id="min"></span>
+      <span class="mark02">.</span>
+      <span class="txt_sm" id="sec"></span>
+    </div>
+
+    <div class="date_box">
+      <span id="month"></span>
+      <span class="point">.</span>
+      <span id="date"></span>
+      <span class="point">.</span>
+      <span id="year"></span>
+      <span id="day"></span>
+    </div>
+  </div>
+
+  <div class="scheduler">
+    <h1>Scheduler</h1>
+    <p>공부할 주제를 기록해 보세요</p>
+    <p>공부가 끝난 것은 클릭해서 삭제할 수 있습니다.</p>
+    <form action="">
+        <input type="text" id="subject" autofocus>
+        <input type="time" id="time">
+        <button onclick="newRegister(); return false;">추가</button>
+    </form>
+    <hr>
+    <ul id="itemList"> </ul>
+  </div>
+
+  <div class="warn">
+    <p>※ 올바른 사용방법 ※</p>
+    <p>ㆍ정확한 인식을위해 카메라각도를 얼굴 정면을 향하도록 하세요</p>
+    <p>ㆍ주변 밝기가 너무 어두우면 인식의 어려움이 있을 수 있습니다</p>
+  </div>
+
+</div>
+
+  <!--<link rel="stylesheet" href="{% static 'css/clock.css' %}">-->
+
+  <script src="{% static 'css/clock.js' %}"></script>
+  <script src="{% static 'css/stop.js' %}"></script>
+  <script>
+    function newRegister() {
+      var newItem = document.createElement("li");  // 요소 노드 추가
+      newItem.className='lsclass';
+
+      var subject = document.querySelector("#subject");  // 폼의 텍스트 필드
+      var newText = document.createTextNode(subject.value);// 텍스트 필드의 값을 텍스트 노드로 만들기
+      if(subject.value=="") return;
+      var newp_content = document.createElement("span");
+      newp_content.appendChild(newText);
+      newp_content.className = 'tempclass';
+
+      var subjecttime=document.querySelector("#time");
+      var newtime=document.createTextNode(subjecttime.value);
+      if(subjecttime.value=="") return;
+      var newp_time = document.createElement("span");
+      newp_time.appendChild(newtime);
+      newp_time.className = 'tempclass';
+
+      var newButton = document.createElement("button");  // 요소 노드 추가
+      var jbBtnText = document.createTextNode( '할일 완료' );
+      newButton.appendChild(jbBtnText);
+
+      newItem.appendChild(newp_content);  // 텍스트 노드를 요소 노드의 자식 노드로 추가
+      newItem.appendChild(newp_time);  // 텍스트 노드를 요소 노드의 자식 노드로 추가
+      newItem.appendChild(newButton);
+
+      var itemList = document.querySelector("#itemList");  // 웹 문서에서 부모 노드 가져오기
+
+      itemList.insertBefore(newItem, itemList.childNodes[0]);  // 자식 노드중 첫번째 노드 앞에 추가
+
+      var items = document.querySelectorAll("li");  // 모든 항목 가져오기
+      for(i=0; i<items.length; i++) {
+        items[i].lastChild.addEventListener("click", function() {  // 항목 클릭했을 때 실행할 함수
+          if(this.parentNode)    // 부모 노드가 있다면
+            this.parentNode.remove(this);  // 부모 노드에서 삭제
+        });
+      }
+    }
+  </script>
+
+</body>
+
+</html>
