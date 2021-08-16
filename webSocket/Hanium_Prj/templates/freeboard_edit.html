@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<title>게시물 수정 - {{post.title}}</title>
+<div class="masthead ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-xs-10 mx-auto">
+                <br>
+                <h1 class="panel-title text-center"><i class="far fa-edit"></i>&nbsp;&nbsp;게시물 수정</h1>
+                <br><br><br>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="title">
+                            <h4>제목 작성</h4>
+                        </label>
+                        <input name="title" id="title" type="text" class="form-control form-control-lg input-block" value="{{post.title}}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="contents">
+                            <h4>내용 작성</h4>
+                        </label>
+                        <textarea cols="10" rows="20" id="contents" name="contents" class="form-control form-control-lg input-block">{{post.contents}}</textarea>
+                    </div>
+                    <br><br>
+                    <button type="button" class="btn btn-lg btn-outline-dark" onclick="location.href = '/freeboard_post/{{post.id}}'"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;이전</button>
+                    <button type="button" class="btn btn-lg btn-outline-success" style="float:right;" data-toggle="modal" data-target="#exampleModalCenter">저장</button>
+                    <!-- 게시물 수정 -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLongTitle">게시물 저장</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>게시물을 저장하시겠습니까?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-lg btn-success">저장</button>
+                                    <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
