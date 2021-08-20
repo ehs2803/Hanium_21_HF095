@@ -1,0 +1,138 @@
+    /* 각 기능 페이지 */
+    .all {
+        background: #B4E5FF;
+        margin: 30px;
+        height: 800px;
+    }
+
+    .stw {
+        position: absolute;
+        border: solid;
+        width: 350px;
+        height: 150px;
+        left: 790px;
+        top: 450px;
+        text-align: center;
+    }
+
+    .button {
+        width: 90px;
+        height: 30px;
+        margin-left: 30px;
+        background: #222;
+        color: #fff;
+        border: none;
+    }
+
+    .cam {
+        position: absolute;
+        width: 650px;
+        height: 550px;
+        top: 120px;
+        left: 70px;
+    }
+
+    .tip {
+        position: absolute;
+        width: 700px;
+        height: 170px;
+        top: 700px;
+        left: 600px;
+    }
+
+    .how {
+        position: absolute;
+        width: 500px;
+        height: 130px;
+        top: 700px;
+        left: 100px;
+    }
+
+    .scheduler {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        top: 120px;
+        left: 1200px;
+    }
+
+    .scheduler .input[type="text, time"] {
+        width: 370px;
+        float: left;
+        height: 30px;
+        padding-left: 30px;
+    }
+
+    .scheduler .button {
+        width: 90px;
+        height: 30px;
+        margin-left: 30px;
+        background: #222;
+        color: #fff;
+        border: none;
+    }
+
+    .tempclass {
+        margin: 5px;
+        padding: 5px;
+        border: 2px solid black;
+        border-radius: 25px;
+        font: 80px;
+    }
+
+    .lsclass {
+        height: 50px;
+    }
+
+    .clock {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        top: 120px;
+        left: 810px;
+        margin: auto;
+        padding-top: 75px;
+        background: grey;
+        text-align: center;
+    }
+
+    .clock .time_box {
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .clock span {
+        color: #fff;
+    }
+
+    .txt_lg {
+        font-size: 75px;
+    }
+
+    .txt_sm {
+        font-size: 20px;
+    }
+
+    .date_box {
+        font-size: 15px;
+    }
+
+    #day {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .mark {
+        background: grey;
+        display: inline-block;
+        vertical-align: top;
+        height: 100px;
+        margin-left: 1px;
+        line-height: 94px;
+        font-size: 55px;
+    }
+
+    .mark02 {
+        display: inline-block;
+        margin-left: -3px;
+    }
