@@ -1,0 +1,15 @@
+[Unit]
+Description=uWSGI service
+After=syslog.target
+
+[Service]
+ExecStart=/home/yh/Hanium_Prj/bin/uwsgi -i /home/yh/21_hf095/프로젝트/Hanium_Prj/.config/uwsgi/Hanium_Prj.ini
+
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
