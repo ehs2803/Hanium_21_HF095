@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<title>Task Manager - Main</title>
+
+<body>
+    <!-- Page Content -->
+    <br><br>
+    <div class="container">
+        <!-- Heading Row -->
+        <div class="row align-items-center my-5">
+            <div class="col-lg-7">
+                <img src="https://i1.sndcdn.com/avatars-000530797560-zky5dg-t500x500.jpg" height="400" width="600">
+            </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-5">
+                <p style="font-size:39px;">Task Manager(통합)</p>
+                <p></p>
+                <p>- 졸음 방지기능</p>
+                <p>- 눈깜빡임 측정 기능</p>
+                <p>- 시계 및 스톱워치 기능</p>
+                <p>- 스케줄러</p>
+                <a class="btn btn-primary" href="{% url 'TaskManager' %}">실행</a>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+        <!--Call to Action Well # 필요없는 부분이라 일단 지움-->
+        <div>
+            <br><br>
+            <h3 class="text-black m-0">Core function</h3>
+            <p></p>
+        </div>
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">졸음 감지 시스템</h2>
+                        <p class="card-text">눈깜박임 감지기능이 제외된 환경입니다</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'Drowsiness' %}" class="btn btn-primary btn-sm">실행</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-4 -->
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">눈깜빡임 측정 시스템</h2>
+                        <p class="card-text">졸음 감지기능이 제외된 환경입니다</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'Blinking' %}" class="btn btn-primary btn-sm">실행</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-4 -->
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">게시판</h2>
+                        <p class="card-text">사용자간의 소통을 위한 공간입니다.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'Board' %}" class="btn btn-primary btn-sm">GO!</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+    </div>
+</body>
+<br><br>
+{%endblock %}

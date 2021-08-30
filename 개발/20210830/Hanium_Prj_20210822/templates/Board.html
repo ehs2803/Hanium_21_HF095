@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<title>Task Manager - Board</title>
+
+<head>
+    <style>
+    .col {
+        position: absolute;
+        left: 870px;
+        top: 200px;
+        width: 400px;
+    }
+
+    .cold {
+        position: absolute;
+        left: 882px;
+        top: 500px;
+        width: 373px;
+    }
+
+    .boardall {
+        height: 866px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="boardall">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">자유 게시판</h2>
+                    <p class="card-text">자유롭게 회원들과 소통할수있는 공간입니다.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'freeboard' %}" class="btn btn-primary btn-sm">Go !</a>
+                </div>
+            </div>
+        </div>
+        <div class="cold">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Q & A</h2>
+                    <p class="card-text">이용에 어려움이 있으면 언제든지 문의하세요.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'questionboard' %}" class="btn btn-primary btn-sm">Go !</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
