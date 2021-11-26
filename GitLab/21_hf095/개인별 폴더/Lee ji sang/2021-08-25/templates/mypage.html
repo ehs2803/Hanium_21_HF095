@@ -1,0 +1,178 @@
+{% load static %}
+{% block content %}
+
+
+<head>
+    <title>Task Manager - MyPage</title>
+    <!--chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js"></script>
+
+    <!--jsfile-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/skel.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <script src="{% static 'js/mains.js' %}"></script>
+
+
+    <meta charset="utf-8" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/mains.css' %}" />
+    <style>
+        .inner {
+        position: absolute;
+        top: 150px;
+        width: 1400px;
+        left: 350px;
+        height: 750px;
+    }
+
+    .info {
+        position: absolute;
+        width: 1350px;
+        left: 20px;
+        top: 10px;
+    }
+
+    .bar {
+        position: absolute;
+        width: 800px;
+        left: 30px;
+        top: 300px;
+    }
+
+    .doughnut {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        left: 950px;
+        top: 300px;
+    }
+    </style>
+</head>
+
+<body style="background-color:#fcfcfc">
+
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="{% url 'index' %}" class="logo">Task Manager</a>
+
+				{% if user %}
+				<nav class="right">
+					<a class="button alt">{{user.username}}님</a>
+					<a class="button alt" href="{% url 'logout' %}">Logout</a>
+				</nav>
+				{% else %}
+				<nav class="right">
+					<a class="button alt" href="login" >Log in</a>
+				</nav>
+				{% endif %}
+			</header>
+
+        <!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="{% url 'freeboard' %}">게시판</a></li>
+					<li><a href="{% url 'questionboard' %}">Q & A</a></li>
+					<li><a href="{% url 'mypage' %}">마이페이지</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="#" class="button fit">Login</a></li>
+				</ul>
+			</nav>
+
+    <div class="all" style="background-color:#ffffff ">
+        <div class="inner">
+            <div class="info">
+                <h1>'{{user.username}}'님 반갑습니다!</h1>
+                <h3> ----------------------------------------------------------------------------------------------------------------------------------------------------</h3>
+                <h3>email : {{user.email}}</h3>
+                <h3>가입일 : {{user.date_joined}}</h3>
+            </div>
+            <!--barchart-->
+            <div class="bar">
+                <div>
+                    <h5>Weekly count chart</h5>
+                    <canvas id="myChart"></canvas>
+                    <script>
+                    labels1 = [
+                        'Mon',
+                        'Tue',
+                        'Wed',
+                        'Thr',
+                        'Fri',
+                        'Sat',
+                        'Sun'
+                    ];
+                    data = {
+                        labels: labels1,
+                        datasets: [{
+                            label: 'Number of drowsiness detections this week',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99,132)',
+
+                            data: [0, 6, 2, 1, 4, 5, 8], // 전처리된 리스트형 데이터 필요 크기 7
+
+                        }]
+                    };
+                    const config1 = {
+                        type: 'line',
+                        data,
+                        options: {}
+                    };
+                    var myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config1
+                    );
+                    </script>
+                </div>
+            </div>
+            <!--doughnutchart-->
+            <div class="doughnut">
+                <h5>Drowsiness frequency by time</h5>
+                <div>
+                    <canvas id="dChart"></canvas>
+                    <script>
+                    const data = {
+                        labels: [
+                            'Red',
+                            'Blue',
+                            'Yellow'
+                        ],
+                        datasets: [{
+                            label: 'My First Dataset',
+
+                            data: [300, 50, 100], // 크기 3인 리스트형 데이터 전처리 필요
+
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    };
+
+                    const config = {
+                        type: 'doughnut',
+                        data: data,
+                    };
+
+                    var dChart = new Chart(
+                        document.getElementById('dChart'),
+                        config
+                    );
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock content %}

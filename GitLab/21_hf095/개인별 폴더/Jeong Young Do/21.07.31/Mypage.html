@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Don,t sleep - Main</title>
+  {% load static %}
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/small-business.css' %}" rel="stylesheet">
+  <!--chart js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js"></script>
+
+  <style>
+    .all{
+    background : #fcfcfc;
+    height: 1000px;
+	}
+	.inner{
+    background : #ffffff;
+    position : absolute;
+    top : 100px;
+    width : 1400px;
+    left : 350px;
+    height: 900px;
+	}
+    .info{
+	position : absolute;
+	  width : 1350px;
+	  left :20px;
+	  top : 50px;
+	}
+	.bar{
+	position : absolute;
+      width : 800px;
+	  left :30px;
+	  top : 400px;
+	}
+	.doughnut{
+	position : absolute;
+      width : 400px;
+	  height : 400px;
+	  left : 950px;
+	  top : 400px;
+	}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'main' %}">Task Manager</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'main' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Mypage</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="#">user : '{{user.username}}'님</a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'login' %}">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class = "all">
+    <div class = "inner">
+ <div class = "info">
+  <h1>'{{user.username}}'님 반갑습니다!</h1>
+   <h3> ----------------------------------------------------------------------------------------------------------------------</h3>
+   <h3>email : {{user.email}}</h3>
+ </div>
+
+    <!--barchart-->
+  <div class = "bar">
+  <div>
+    <h5>Weekly count chart</h5>
+    <canvas id="myChart"></canvas>
+     <script>
+     labels1 = [
+       'Mon',
+       'Tue',
+       'Wed',
+       'Thr',
+       'Fri',
+       'Sat',
+       'Sun'
+    ];
+    data = {
+      labels: labels1,
+        datasets: [{
+          label: 'Number of drowsiness detections this week',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+
+          data: [0, 6, 2, 1, 4, 5, 8],      // 전처리된 리스트형 데이터 필요 크기 7
+
+       }]
+      };
+       const config1 = {
+       type: 'line', data,
+       options: {}
+       };
+       var myChart = new Chart(
+         document.getElementById('myChart'),
+         config1
+       );
+      </script>
+    </div>
+  </div>
+
+    <!--doughnutchart-->
+    <div class = "doughnut">
+      <h5>Drowsiness frequency by time</h5>
+      <div>
+        <canvas id="dChart"></canvas>
+        <script>
+         const data = {
+            labels: [
+              'Red',
+              'Blue',
+              'Yellow'
+            ],
+            datasets: [{
+              label: 'My First Dataset',
+
+              data: [300, 50, 100],        // 크기 3인 리스트형 데이터 전처리 필요
+
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+              ],
+              hoverOffset: 4
+            }]
+          };
+
+          const config = {
+          type: 'doughnut',
+            data: data,
+          };
+
+          var dChart = new Chart(
+            document.getElementById('dChart'),
+            config
+          );
+        </script>
+      </div>
+    </div>
+    </div>
+</div>
+
+</body>
+
+</html>

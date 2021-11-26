@@ -1,0 +1,121 @@
+< 07.19 ~ 07.26 >
+작성자 : 최영환
+전체적으로 주석 달고 코드 정리 좀 했음
+추가로 구현된 기능 및 서비스 관련 통합 진행하였음
+기능별로 정리하였으며, DB 관련 정리는 최하단에 존재함
+아직 미완료된 부분도 존재하며, 특히 DB의 경우, 기능을 구현하면서
+수정할 부분 많이 존재함
+
+# 로그인 회원가입 기능 변경사항 #
+   < 대대적인 변동이 있음 >
+1. views.py
+   - login, signup, logout 함수 구현 
+     ㅇ 방식 변경 : form 사용하는 방식 -> django.session 사용하는 방식
+
+2. static 폴더 변경 사항
+   - js 변경 : login.js / main.js 등 js 파일 추가 -> 에러 메시지 정상 출력
+     ㅇ login.js : 로그인 페이지 js 동작
+     ㅇ main.js : 회원가입 시 js 동작
+
+   - css 변경 : accont.css / main.css 등 css 통합 작업 진행 -> css 통합된거 적용
+     ㅇ account.css : 로그인 및 회원 가입 css
+    
+   - img 변경 : 에러메시지용 이미지 파일 추가
+
+3. templates 폴더 변경 사항
+   - login.html / signup.html 변경
+
+# 각 기능 페이지 관련 변경 사항 #
+   < 아직 진행 중... >
+1. static 폴더 변경 사항
+   - css 변경 : main.css 로 통합
+     ㅇ 각 기능 css 통합 완료 - clock.css : main.css 로 통합
+
+   - js 변경 : scheduler.js 로 분리하였으나 정상 동작하지 않는 문제점 발견
+     ㅇ clock.js : 시계 기능 js 파일로 분리 완료
+     ㅇ stop.js : 스톱워치 기능 js 파일로 분리 완료
+
+2. templates 폴더 변경 사항
+   - TaskManager.html / Drowsiness.html / Blinking.html 파일
+     ㅇ css 및 js 파일 변동에 따른 약간의 코드 수정
+     ㅇ logout 내비게이션 바의 경우 logout 함수가 동작하도록 매핑하였음
+
+# 통계 기능 구현 관련 수정 사항 #
+   < 백엔드 구현 완료, 프론트엔드 미완료 >
+1. view.py 변경 사항
+   - main() 함수 (메인페이지 함수)
+     ㅇ sleep.py 에서 DB insert를 위해 전역변수 ID / USERNAME 추가
+
+2. sleep.py 변경 사항
+   - 각 클래스의 get_sleep / get_sleep_front_back / blink_count 함수들
+     ㅇ DB insert 동작 추가 - 값 정상 삽입 확인
+     ㅇ views.py 의 전역변수인 ID / USERNAME 사용
+
+3. 프론트엔드 - 정영도 : 진행중
+
+# 게시판 기능 구현 관련 수정 사항 #
+현재 board 관련해서 되어있는 것들은 임시.
+아직 미구현 단계.
+
+# 테이블 일부 수정 #
+CREATE TABLE문 첨부. 적용할것
+
+# 눈 깜빡임 통계 테이블
+CREATE TABLE `blink_data` (
+  `id` int NOT NULL,
+  `b_time` datetime NOT NULL,
+  `username` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`,`b_time`),
+  CONSTRAINT `blink_data_ibfk_1` FOREIGN KEY (`id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+# 일일 스케줄러 테이블
+CREATE TABLE `daily_todo` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `starttime` datetime NOT NULL,
+  `content` text,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `daily_todo_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+# 자유게시판 테이블
+CREATE TABLE `freeboard` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL,
+  `title` varchar(120) NOT NULL,
+  `contents` text NOT NULL,
+  `registered_date` datetime NOT NULL,
+  `hits` int NOT NULL DEFAULT '0',
+  `username` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `username` (`username`),
+  CONSTRAINT `freeboard_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+# 질문게시판 테이블
+CREATE TABLE `questionboard` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL,
+  `title` varchar(120) NOT NULL,
+  `contents` text NOT NULL,
+  `registered_date` datetime NOT NULL,
+  `hits` int NOT NULL DEFAULT '0',
+  `username` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `username` (`username`),
+  CONSTRAINT `questionboard_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+# 졸음 통계 테이블
+CREATE TABLE `drowsiness_data` (
+  `id` int NOT NULL,
+  `d_time` datetime NOT NULL,
+  `username` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`,`d_time`),
+  CONSTRAINT `drowsiness_data_ibfk_1` FOREIGN KEY (`id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

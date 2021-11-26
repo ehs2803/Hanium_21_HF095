@@ -1,0 +1,71 @@
+###############################################################################
+1. mysql 워크벤치에서 create database task_manager (task_manager DB 생성)
+2. use task_manager / 좌측 Navgator 에서 task_manager 더블클릭(task_manager DB 사용)
+3. settings.py에서 설정 해뒀으면 python manage.py makemigrations -> python manage.py migrate
+   (마이그레이션)
+4. 카톡방에 보낸 DB_CREATE_TB.sql 의 쿼리문 실행(우리팀에서 사용하는 테이블들 생성)
+5. python manage.py inspectdb 로 나온 결과 -> models.py 에 복붙
+6. 3번 과정 다시 진행
+
+※ 5번 : 개인별폴더/최영환/21.07.18/models.py 내용 가져다 쓰면됨
+###############################################################################
+# 21.07.20 수정
+회원가입 로그인 로그아웃 기능 변경 및 인트로 페이지(index) 추가
+수정 파일 및 디렉토리(할것도 포함ㅇㅇ)
+- html
+login signup index
+현수 : TaskManager tip
+
+- css
+account.css
+
+- js
+clock.js
+stop.js
+
+- urls.py
+index, login, logout, tip 변동
+
+- views.py
+login 함수
+logout 함수
+
+# 작년 한이음 프로젝트 참고#
+프론트 참고해서 적용 및 수정 해야함
+
+################################################################################
+장고 뷰에서 템플릿으로 데이터 전송
+Query Set 이라고 부름
+https://velog.io/@swhybein/django-queryset
+
+# request는 요청 변수
+# context는 내용들
+# 메인 페이지(예시)
+def main(request):
+    username = None
+    if request.session.get('id'):
+        username = User.objects.get(username=request.session.get('username'))
+    # html로 세션 데이터 전송
+    context = {
+        'username': username  # 사용자 아이디
+    }
+    return render(request, "main.html", context=context)
+
+
+filter 사용 시 html에서의 동작
+{{data}}
+
+
+뷰 함수
+- MyPage
+
+
+# 장고 비 로그인 시 접근 방지
+https://hooongs.tistory.com/25
+
+# 장고 기능 구현 이거 쓰면 될듯
+https://gosmcom.tistory.com/143
+
+# 장고 정리 잘되어잇음
+https://ssungkang.tistory.com/category/%EC%9B%B9%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/Django?page=6
+https://yongkis.tistory.com/5?category=1114266

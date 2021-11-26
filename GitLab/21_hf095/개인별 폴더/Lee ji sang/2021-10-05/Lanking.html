@@ -1,0 +1,124 @@
+{% load static %}
+<head>
+    <title>Ranking</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mains.css' %}" />
+
+
+    <style>
+    .tempclass{
+      margin: 5px;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 25px;
+      font: 80px;
+    }
+    .lsclass{
+      height: 50px;
+    }
+    .user{
+        color:red;
+    }
+  </style>
+</head>
+
+<body>
+      <!-- Header -->
+         <header id="header">
+            <nav class="left">
+               <a href="#menu"><span>Menu</span></a>
+            </nav>
+            <a href="{% url 'index' %}" class="logo">Task Manager</a>
+
+            {% if user %}
+            <nav class="right">
+               <a class="button alt">{{user.username}}님</a>
+               <a class="button alt" href="{% url 'logout' %}">Logout</a>
+            </nav>
+            {% else %}
+            <nav class="right">
+               <a class="button alt" href="login" >Log in</a>
+            </nav>
+            {% endif %}
+         </header>
+
+        <!-- Menu -->
+         <nav id="menu">
+            <ul class="links">
+               <li><a href="{% url 'index' %}">Home</a></li>
+               <li><a href="{% url 'freeboard' %}">게시판</a></li>
+               <li><a href="{% url 'questionboard' %}">Q & A</a></li>
+               <li><a href="{% url 'mypage' %}">마이페이지</a></li>
+               <li><a href="{% url 'lank' %}">랭킹게시판</a></li>
+            </ul>
+            <ul class="actions vertical">
+               <li><a href="#" class="button fit">Login</a></li>
+            </ul>
+         </nav>
+
+<div class="masthead ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 mx-auto">
+                <br>
+                <h1 class="panel-title">&nbsp;랭킹게시판 </h1>
+                <table class="table-hover">
+                    <thead style="white-space:nowrap;">
+                        <tr>
+                            <th scope="col">순위</th>
+                            <th scope="col">사용자</th>
+                            <th scope="col">완료된 일정 퍼센트</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <!-- Scripts -->
+         <script src="{% static 'js/jquery.min.js' %}"></script>
+         <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+         <script src="{% static 'js/skel.min.js' %}"></script>
+         <script src="{% static 'js/util.js' %}"></script>
+         <script src="{% static 'js/mains.js' %}"></script>
+</body>
+</html>
+
+<script>
+
+    let data = JSON.parse("{{ result_data_js | escapejs }}");
+    let user = JSON.parse("{{ u_data_js | escapejs }}");
+
+    if(data.length>0){
+        var td = $("<tbody/>");
+	    for( var i in data ){
+		    var st= String(data[i])
+		    var str=st.split(',')
+		    var $rank = parseInt(i)+1;
+		    var $username = str[0];
+		    var $percent = parseInt(parseFloat(str[1]));
+		    if($username==user){
+                var row = $("<tr/>").append(
+				    $("<th/>").text($rank).addClass('user'),
+				    $("<td/>").text($username).addClass('user'),
+				    $("<td/>").text($percent).addClass('user'),
+		        );
+		        td.append(row);
+		    }
+		    else{
+		        var row = $("<tr/>").append(
+				    $("<th/>").text($rank),
+				    $("<td/>").text($username),
+				    $("<td/>").text($percent),
+		        );
+		        td.append(row);
+		    }
+
+	    }
+	    $(".table-hover").append(td);
+    }
+
+</script>

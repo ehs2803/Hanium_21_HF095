@@ -1,0 +1,10 @@
+21/06/28
+
+- templates 폴더내
+Blinking.html
+Drowsiness.html
+TaskManager.html
+
+scheduler 삭제버튼 구현
+
+--> taskmaner페이지 캠화면 잘안나옴 확인바람

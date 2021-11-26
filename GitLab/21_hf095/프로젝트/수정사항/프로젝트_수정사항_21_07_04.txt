@@ -1,0 +1,7 @@
+21/07/04
+
+-Hanium_Prj 폴더 업로드함
+   data 폴더 내 Front_and_Top_2021_07_02.h5 업로드
+   TaskManager 폴더 내 sleep.py에 front_back으로 졸음탐지 소스 구현
+   주석 아직 않달고, 변수 명 다시 지어야할 부분도 있음
+   나중에 수정 예정

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<title>Task Manager - Drowsiness</title>
+
+<body style="background-color:#fafafa">
+    <div class="all" style="background-color: #ffffff">
+            <video height="500" width="700" autoplay></video>
+    <script>
+    // get video dom element
+    const video = document.querySelector('video');
+    // request access to webcam
+    navigator.mediaDevices.getUserMedia({ video: { width: 426, height: 240 } }).then((stream) => video.srcObject = stream);
+    // returns a frame encoded in base64
+    const getFrame = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        const data = canvas.toDataURL('image/jpeg');
+        return data;
+    }
+    WS_URL = 'ws://localhost:8000/ws/Drowsiness'
+    const FPS = 3;
+    const ws = new WebSocket(WS_URL)
+    ws.onopen = () => {
+        console.log(`Connected to ${WS_URL}`);
+        setInterval(() => {
+            ws.send(getFrame());
+        }, 100 / FPS);
+    }
+    </script>
+        <div class="stw">
+            <div>
+                <h2>Stop watch</h2>
+                <span id="postTestMin">00</span><!-- 분 -->
+                <span>:</span>
+                <span id="postTestSec">00</span>
+                <!--초-->
+                <span>.</span>
+                <span id="postTestMilisec">00</span>
+                <!--밀리초-->
+            </div>
+            <div>
+                <ul id="testRecordList"></ul>
+                <!--중간 기록할 리스트-->
+            </div>
+            <div>
+                <button class="button" type="button" id="testStartBtn">START</button>
+                <!--시작/재시작/기록 버튼-->
+                <button class="button" type="button" id="testStopBtn">STOP</button>
+                <!--스톱 버튼-->
+            </div>
+        </div>
+        <div class="clock">
+            <div class="time_box">
+                <span class="txt_lg" id="hours"></span>
+                <span class="mark">:</span>
+                <span class="txt_lg" id="min"></span>
+                <span class="mark02">.</span>
+                <span class="txt_sm" id="sec"></span>
+            </div>
+            <div class="date_box">
+                <span id="month"></span>
+                <span class="point">.</span>
+                <span id="date"></span>
+                <span class="point">.</span>
+                <span id="year"></span>
+                <span id="day"></span>
+            </div>
+        </div>
+        <div class="scheduler">
+            <h1>TO DO LIST</h1>
+            <p>공부할 주제를 기록해 보세요</p>
+            <p>공부가 끝난 것은 클릭해서 삭제할 수 있습니다.</p>
+            <form action="./createTodo/" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="todoContent" name="todoContent" class="input">
+                    <span class="input-group-btn">
+                        <button class="button" type="submit">입력</button>
+                    </span>
+                </div>
+            </form>
+            <hr>
+            <div class="toDoDiv">
+                <ul class="list-group">
+                    {% for todo in todos %}
+                    <form action="./deleteTodo/" method="GET">
+                        <div class="input-group" name='todo1'>
+                            <li class="list-group-item">{{todo.content}}</li>
+                            <span class="input-group-addon">
+                                <button type="submit" class="button" name="delete_id" value={{ todo.id }}>삭제</button>
+                            </span>
+                        </div>
+                    </form>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="how">
+            <p>※ 올바른 사용방법 ※</p>
+            <p>ㆍ정확한 인식을위해 카메라각도를 얼굴 정면을 향하도록 하세요</p>
+            <p>ㆍ주변 밝기가 너무 어두우면 인식의 어려움이 있을 수 있습니다</p>
+        </div>
+        <div class="tip">
+            <a href="{% url 'tip' %}" target="_blank">
+                <button class="button" type="button">tip</button>
+            </a>
+        </div>
+    </div>
+    <script src="{% static 'js/clock.js' %}"></script>
+    <script src="{% static 'js/stop.js' %}"></script>
+</body>
+{% endblock %}

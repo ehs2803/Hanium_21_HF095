@@ -1,0 +1,22 @@
+CREATE TABLE `comment_questionboard` (
+  `pid` int NOT NULL,
+  `uid` int NOT NULL,
+  `created_date` datetime NOT NULL,
+  `comments` text NOT NULL,
+  `username` varchar(150) NOT NULL,
+  PRIMARY KEY (pid,uid,created_date),
+  CONSTRAINT `questionboard_comment_ibfk` FOREIGN KEY (`pid`) REFERENCES `questionboard` (`id`) on delete cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+위 코드로 테이블 생성 후 migrate 등등하면 model.py는 자동으로 추가됨.
+====================================================
+url.py : 41번째 줄
+
+====================================================
+view.py : 229~269번째 줄
++1~18번째 import 문에서 12번째줄
+
+====================================================
+questionboard_post.html : 67~90번째 줄
+
+

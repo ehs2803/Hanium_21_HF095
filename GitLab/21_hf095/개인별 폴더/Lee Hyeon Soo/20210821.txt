@@ -1,0 +1,3 @@
+test.html 말고 기존 url로 실행해 봐야함.
+
+view.py에서 username 등을 못넘기는 상황이라 데이터베이스 입력 시 오류남.

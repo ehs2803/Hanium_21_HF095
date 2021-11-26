@@ -1,0 +1,217 @@
+
+{% load static %}
+<title>Task Manager - MyPage</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/mains.css' %}" />
+
+<head>
+    <!--chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js"></script>
+    <style>
+    .inner {
+        position: absolute;
+        top: 150px;
+        width: 1400px;
+        left: 100px;
+        height: 750px;
+    }
+
+    .info {
+        position: absolute;
+        width: 1350px;
+        left: 20px;
+        top: 10px;
+    }
+
+    .bar{
+        position : absolute;
+        width : 1000px;
+        height : 700px;
+        left :0px;
+        top : 250px;
+    }
+    .doughnut{
+        position : absolute;
+        width : 400px;
+        height : 400px;
+        left :1000px;
+        top : 250px;
+    }
+  </style>
+</head>
+<body>
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="{% url 'index' %}" class="logo">Task Manager</a>
+
+				{% if user %}
+				<nav class="right">
+					<a class="button alt">{{user.username}}님</a>
+					<a class="button alt" href="{% url 'logout' %}">Logout</a>
+				</nav>
+				{% else %}
+				<nav class="right">
+					<a class="button alt" href="{% url 'login' %}" >Log in</a>
+				</nav>
+				{% endif %}
+			</header>
+
+        <!-- Menu -->
+            <nav id="menu">
+               <ul class="links">
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="{% url 'freeboard' %}">게시판</a></li>
+                  <li><a href="{% url 'questionboard' %}">Q & A</a></li>
+                  <li><a href="{% url 'mypage' %}">마이페이지</a></li>
+                  <li><a href="{% url 'lank' %}">랭킹게시판</a></li>
+               </ul>
+               <ul class="actions vertical">
+                  <li><a href="#" class="button fit">Login</a></li>
+               </ul>
+            </nav>
+
+    <div class="all">
+        <div class="inner">
+             <div class="info">
+                <h1>'{{user.username}}'님 반갑습니다!</h1>
+                <h3> ----------------------------------------------------------------------------------------------------------------------------------------------------</h3>
+                <h3>email : {{user.email}}</h3>
+                <h3>가입일 : {{user.date_joined}}</h3>
+             </div>
+        <!--barchart-->
+        <div class="bar">
+            <div>
+                <script>
+                let d_data_js = JSON.parse("{{ d_data_js | escapejs }}");
+
+                var dictObject_d = {}
+                for (var i = 0; i < d_data_js.length; i++) {
+                    if (String(d_data_js[i].d_time).substr(0, 10) in dictObject_d) {
+                        dictObject_d[String(d_data_js[i].d_time).substr(0, 10)] += 1
+                    } else {
+                        dictObject_d[String(d_data_js[i].d_time).substr(0, 10)] = 1
+                    }
+                }
+                </script>
+                <canvas id="myChart"></canvas>
+                <script>
+                labels1 = [];
+                for (var key in dictObject_d) {
+                    labels1.push(key);
+                }
+                data_d = [];
+                for (var key in dictObject_d) {
+                    data_d.push(dictObject_d[key]);
+                }
+
+                data = {
+                    labels: labels1,
+                    datasets: [{
+                        label: 'Number of drowsiness detections this week',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: data_d,
+                    }]
+                };
+                const config1 = {
+                    type: 'line',
+                    data,
+                    options: {}
+                };
+                var myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config1
+                );
+                </script>
+            </div>
+        </div>
+        <!--doughnutchart-->
+        <div class="doughnut">
+            <div>
+                일정선택
+                <canvas id="dChart"></canvas>
+
+                <script type="text/javascript">
+                label = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+                    '21', '22', '23', '24'
+                ]
+                backgroundColors = ['rgb(255, 0, 0)', 'rgb(255, 187, 0)', 'rgb(171, 242, 0)', 'rgb(0, 216, 255)',
+                    'rgb(0, 89, 255)', 'rgb(255, 9, 221)', 'rgb(242, 203, 97)', 'rgb(135, 229, 132)', 'rgb(105, 109, 255)',
+                    'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)',
+                    'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)',
+                    'rgb(5, 9, 132)', 'rgb(5, 9, 132)', 'rgb(5, 9, 132)'
+                ]
+
+                var dictObject_d_h = {}
+                tempdate = '2021-09-14'
+                for (var i = 0; i < d_data_js.length; i++) {
+                    if (String(d_data_js[i].d_time).substr(0, 10) === tempdate) {
+                        if (String(d_data_js[i].d_time).substr(11, 2) in dictObject_d_h) {
+                            dictObject_d_h[String(d_data_js[i].d_time).substr(11, 2)] += 1;
+                        } else {
+                            dictObject_d_h[String(d_data_js[i].d_time).substr(11, 2)] = 1;
+                        }
+                    }
+                }
+
+                labels_temp = []
+                data_temp = []
+                background_temp = []
+
+                var i = 0;
+                if (tempdate in dictObject_d) {
+                    for (var key in dictObject_d_h) {
+                        labels_temp.push(key);
+                        data_temp.push(dictObject_d_h[key]);
+                        background_temp.push(backgroundColors[i]);
+                        i += 1;
+                    }
+                } else {
+                    labels_temp.push("데이터 없음");
+                    data_temp.push(1);
+                    background_temp.push('rgb(0,0,0)');
+                }
+
+                const data = {
+                    labels: labels_temp,
+                    datasets: [{
+                        label: 'My First Dataset',
+
+                        data: data_temp,
+
+                        backgroundColor: background_temp,
+                        hoverOffset: 4
+                    }]
+                };
+
+                const config = {
+                    type: 'doughnut',
+                    data: data,
+                };
+
+                var dChart = new Chart(
+                    document.getElementById('dChart'),
+                    config
+                );
+                </script>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--base.html 에 있었던 것-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!--index.html 에 있었던 것-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/skel.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <script src="{% static 'js/mains.js' %}"></script>
+
+</body>

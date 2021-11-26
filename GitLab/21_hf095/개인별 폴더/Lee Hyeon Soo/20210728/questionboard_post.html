@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Don't sleep - webcam</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+
+  <link href="{% static 'css/small-business.css' %}" rel="stylesheet">
+
+</head>
+{% block content %}
+ <div class="masthead ">
+     <div class="container">
+         <div class="row">
+             <div class="col-md-10 col-xs-10 mx-auto">
+                 <h1 class="panel-title text-center"><i class="far fa-edit"></i>&nbsp;&nbsp;Q & A</h1>
+                 <br><br><br>
+
+                 <table class="table">
+                     <thead style="white-space:nowrap;">
+                     <tr>
+                         <th scope="col">번호 : {{post.id}}</th>
+                         <th>작성일 : {{post.registered_date}}</th>
+                         <th>조회수 : {{post.hits}}</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <th scope="row" style="white-space:nowrap;">제목</th>
+                         <th><h5>{{post.title}}</h5></th>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <th scope="row" style="white-space:nowrap;">작성자</th>
+                         <td>{{post.username}}</td>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <th scope="row" style="white-space:nowrap;">내용</th>
+                         <td>{{post.contents}}</td>
+                         <td></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <br><br>
+
+                 <button type = "button" class = "btn btn-lg btn-outline-dark" onclick = "location.href = '/questionboard'"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;이전</button>
+                 <div class="btn-group btn-group-lg" role="group" aria-label="delete" style="float:right;">
+                     <button type="submit" class="btn btn-lg btn-danger" onclick = "location.href = '/questionboard_delete/{{post.id}}'">삭제</button>
+
+                 </div>
+                 <div class="btn-group mr-2 btn-group-lg" role="group" aria-label="edit" style="float:right;">
+                     <button type="submit" class="btn btn-lg btn-success" onclick = "location.href = '/questionboard_edit/{{post.id}}'">수정</button>
+
+                 </div>
+
+                 <!-- 게시물 수정 -->
+                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                     <div class="modal-dialog modal-dialog-centered " role="document">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <h4 class="modal-title" id="exampleModalLongTitle">게시물 수정</h4>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body text-center">
+                                 <h5>게시물을 수정하시겠습니까?</h5>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="submit" class="btn btn-lg btn-success" onclick = "location.href = '/questionboard_edit/{{post.id}}'">수정</button>
+                                 <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">닫기</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <!-- 게시물 삭제 -->
+                 <div class="modal fade" id="exampleModalCenter_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                     <div class="modal-dialog modal-dialog-centered " role="document">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <h4 class="modal-title" id="exampleModalLongTitle_1">게시물 삭제</h4>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body text-center">
+                                 <h5>게시물을 삭제하시겠습니까?</h5>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="submit" class="btn btn-lg btn-danger" onclick = "location.href = '/questionboard_delete/{{post.id}}'">삭제</button>
+                                 <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">닫기</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+{% endblock content %}

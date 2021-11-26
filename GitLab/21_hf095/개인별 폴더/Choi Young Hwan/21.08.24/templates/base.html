@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/mains.css' %}" />
+
+
+</head>
+
+<body>
+    <header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="{% url 'index' %}" class="logo">Task Manager</a>
+				<nav class="right">
+					<a class="button alt" href="login" >Log in</a>
+					<a class="button alt">{{user.username}}</a>
+					<a class="button alt" href="{% url 'logout' %}">Logout</a>
+				</nav>
+			</header>
+
+		<!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="{% url 'freeboard' %}">게시판</a></li>
+					<li><a href="{% url 'questionboard' %}">Q & A</a></li>
+					<li><a href="{% url 'mypage' %}">마이페이지</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="#" class="button fit">Login</a></li>
+				</ul>
+			</nav>
+</body>
+<!-- 템플릿 확장에 사용되는 코드-->
+{% block content %}
+{% endblock %}
+<!-- Footer -->
+<footer id="footer">
+				<div class="inner">
+					<h2>Get In Touch</h2>
+					<ul class="actions">
+						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+						<li><span class="icon fa-envelope"></span> <a href="#">jyd12190@skuniv.ac.kr</a></li>
+						<li><span class="icon fa-map-marker"></span> 124 Seogyeong-ro, Seongbuk-gu, Seoul</li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; Untitled. Design <a href="https://templated.co">TEMPLATED</a>. Images <a href="https://unsplash.com">Unsplash</a>.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'js/skel.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/mains.js' %}"></script>
+
+</html>

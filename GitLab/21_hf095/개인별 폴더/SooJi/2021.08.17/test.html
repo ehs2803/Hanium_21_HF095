@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+
+<head>
+    {% load static %}
+  <meta charset="utf-8">
+  <title>TO DO LIST</title>
+</head>
+
+<body>
+  <div class=container">
+    <div class=header">
+      <div class="page-header">
+        <h1>TO DO LIST</h1>
+      </div>
+    </div>
+      <!-- 여기는 투두리스트 입력 -->
+    <div class="content">
+      <div class="messageDiv">
+        <form action="./createTodo/" method="POST">{% csrf_token %}
+          <div class="input-group">
+              <input type="text" id="todoContent" name="todoContent" class="form-control">
+              <input type='date' id="reg_date" name="reg_date">
+              <input type='time' id="reg_time" name="reg_time"></p>
+              <span class="input-group-btn">
+                 <button class="btn btn-default" type="submit">입력</button>
+              </span>
+          </div>
+        </form>
+      </div>
+
+        <!-- 여기는 미완료 투두리스트! -->
+      <div class="toDoDiv">
+          <ul class="list-group">
+              {% for todo in todos %}
+              <form action="./completeTodo/" method="GET">
+                  {% csrf_token %}
+                  <div class="input-group" name='todo1'>
+                      <li class="list-group-item">{{todo.content}} - {{ todo.reg_date }} / {{ todo.reg_time }}</li>
+                      <span class="input-group-addon">
+                          <button type="submit" class="custom-btn btn btn-danger" name = "complete_id" value ={{ todo.id }}>완료</button>
+                      </span>
+                  </div>
+              </form>
+              {% endfor %}
+          </ul>
+      </div>
+        <div>
+            <span>==============================================================</span>
+        </div>
+        <!-- 여기는 완료된 투두리스트! -->
+        <div class="toDoDiv2">
+          <ul class="list-group">
+              {% for todo in comp_todos %}
+              <form action="./deleteTodo/" method="GET">
+                  {% csrf_token %}
+                  <div class="input-group" name='todo2'>
+                      <li class="list-group-item">{{ todo.content }} - {{ todo.end_date }} / {{ todo.end_time }}</li>
+                      <span class="input-group-addon">
+                          <button type="submit" class="custom-btn btn btn-danger" name = "delete_id" value ={{ todo.id }}>삭제</button>
+                      </span>
+                  </div>
+              </form>
+              {% endfor %}
+          </ul>
+        </div>
+        <div>
+            <span>==============================================================</span>
+        </div>
+        <!-- 여기는 월간 투두리스트! -->
+        <div class="content">
+      <div class="messageDiv2">
+        <form action="./selectTodo/" method="POST">{% csrf_token %}
+          <div class="input-group">
+             월 별 일정 <input type="month" id="month" name="month"></p>
+              <span class="input-group-btn">
+                 <button class="btn btn-default" type="submit">검색</button>
+              </span>
+              {% for todo in sel_todos %}
+              <div class="input-group" name='todo3'>
+                <li class="list-group-item">{{ todo.content }} - {{ todo.end_date }} / {{ todo.end_time }}</li>
+                  {% endfor %}
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

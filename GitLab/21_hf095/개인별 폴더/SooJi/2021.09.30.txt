@@ -1,0 +1,35 @@
+#DB complete_list에 todo_id 추가
+
+ALTER TABLE `complete_list` 
+ADD `tid` int
+
+=============================================================================
+models.py 
+# tid 속성 추가
+
+# CompleteTodo 테이블
+class CompleteList(models.Model):
+    uid = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='uid')
+    username = models.CharField(max_length=150)
+    content = models.TextField(blank=True, null=True)
+    end_date = models.TextField(db_column='END_DATE', null=False)  # Field name made lowercase.
+    end_time = models.TextField(db_column='END_TIME', null=False)  # Field name made lowercase.
+    tid = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'complete_list'
+
+============================================================================
+# completeTodo에서 삭제되던 TodoList와 deleteTodo에서 따로 삭제되던 CompleteList를 deleteTodo 에서 같이 삭제
+# completeTodo에서 삭제되던 코드 삭제
+# 완료 테이블에  tid=todo.id,  추가
+
+#수정한 함수!!
+TaskManager_deleteTodo,
+TaskManaget_completeTodo,
+Drowsiness_deleteTodo,
+Drowsiness_completeTodo,
+Blinking_deleteTodo,
+Blinking_completeTodo
+============================================================================

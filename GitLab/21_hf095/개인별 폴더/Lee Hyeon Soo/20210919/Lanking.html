@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    .tempclass{
+      margin: 5px;
+      padding: 5px;
+      border: 2px solid black;
+      border-radius: 25px;
+      font: 80px;
+    }
+    .lsclass{
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+<ul id="itemList"> </ul>
+</body>
+</html>
+<script>
+    let t_data_js = JSON.parse("{{ t_data_js | escapejs }}");
+    let c_data_js = JSON.parse("{{ c_data_js | escapejs }}");
+
+    var dictObject_t = {}
+    var dictObject_c = {}
+
+    for(var i=0; i<t_data_js.length; i++){
+        if(String(t_data_js[i].username) in dictObject_t){
+            dictObject_t[String(t_data_js[i].username)]+=1
+        }
+        else{
+            dictObject_t[String(t_data_js[i].username)]=1
+
+        }
+    }
+
+    for(var key in dictObject_t){
+        dictObject_c[key]=0
+    }
+
+    for(var i=0; i<c_data_js.length; i++){
+        if(String(c_data_js[i].username) in dictObject_t){
+            dictObject_t[String(c_data_js[i].username)]+=1
+            dictObject_c[String(c_data_js[i].username)]+=1
+        }
+        else{
+            dictObject_t[String(c_data_js[i].username)]=1
+            dictObject_c[String(c_data_js[i].username)]=1
+        }
+    }
+
+    var dictObject_result = {}
+
+    for(var key in dictObject_t){
+        String = key
+        var total = dictObject_t[key]
+        var complete = dictObject_c[key]
+
+        var parcent = (complete/total)*100
+
+        dictObject_result[key]=parcent
+    }
+
+    var items=[];
+
+    for(var key in dictObject_result){
+        items.push([key, dictObject_result[key]]);
+    }
+
+    items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+
+    let u_data_js = JSON.parse("{{ u_data_js | escapejs }}");
+
+    for(var i=0; i<items.length; i++){
+        var newItem = document.createElement("li");  // 요소 노드 추가
+        newItem.className='lsclass';
+
+        var newp_username = document.createElement("span");
+        var text = document.createTextNode(items[i][0]);
+        newp_username.appendChild(text);
+        newp_username.className = 'tempclass';
+
+        var newp_percent = document.createElement("span");
+        var text = document.createTextNode(parseInt(items[i][1]));
+        newp_percent.appendChild(text);
+        newp_percent.className = 'tempclass';
+
+        newItem.appendChild(newp_username);  // 텍스트 노드를 요소 노드의 자식 노드로 추가
+        newItem.appendChild(newp_percent);
+
+        var itemList = document.querySelector("#itemList");  // 웹 문서에서 부모 노드 가져오기
+        itemList.insertBefore(newItem, this.nextSibling);  // 자식 노드중 첫번째 노드 앞에 추가
+/*
+        if(items[i][0]==u_data_js[0]){
+            document.write(items[i][0].fontsize(10)); document.write('\n')
+        }
+        else{
+            document.write(items[i][0]); document.write('\n')
+        }
+        document.write(parseInt(items[i][1]));document.write('<br><br>')
+*/
+    }
+
+
+
+
+
+
+
+
+</script>

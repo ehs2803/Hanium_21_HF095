@@ -1,0 +1,46 @@
+7/24 
+업데이트 파일
+(Mypage.html)
+jschart를 이용하여 통계서비를위한 barchart 생성
+
+7/26 
+업데이트 파일
+(Mypage.html)
+doughnut chart 추가 및 인터페이스 조정 
+
+7/31
+업데이트 파일
+(Mypage.html , Taskmanager.html)
+taskmanager배경색수정, mypage인터페이스 수정
+
+8/01
+업데이트 파일
+(1. taskmanager.html /2. main.html /3. mypage.html /4. board.html)
+1. 스태틱폴더에서 변경안되서 html에서 배경색변경 즉각처리했음
+2. 메인페이지 footage 이상해서 중간에 스페이스넣어서 조정하였음
+3. stylesheet수정 doughnut-chart, bar-chart 인터페이스 수정
+4. board(초안) 아직 좋은게 떠오르는게 없어 메인페이지에있는 카드 가져다 써서 인터페이스 수정하였음 차후 이미지 완성 후 넣을 계획
+
+8/10
+css----------------------------------------
+1. font-awesome.min.css (폰트추가)
+2. main.css -> mains.css (기존에 main.css가 겹쳐서 mains.css로 적용하고 추가함
+   차후에 mains를 기존에 main지우고 변경예정)
+   
+font---------------------------------------
+1.디렉토리 font 추가 css폴더에 넣어봣는데 어디서 
+  참조하는지 몰라서 일단 틀대로 디렉토리생성
+2. font폴더안에있는 내용은 전부 새로 추가된 내용
+
+js -------------------------------------------
+1. jquery.min.js , jquery.scrolly.min.js , mains.js(겹쳐서 일단 s붙혀둠) , skel.min.js , util.js 추가
+
+html ----------------------------------------
+1. index.html 추가. 이게 차후 main.html이 될예정
+2. elements.html , generic.html은 필요가없을거같아서 지우면 될듯
+
+8/17
+업데이트 파일
+templates (index.html , base.html) 
+1. 모든 페이지들 extends base형식 반응형웹 적용 완료
+2. mypage,freeboard,taskmanager 반응형웹 형식으로 만들기위해 아직 수정중

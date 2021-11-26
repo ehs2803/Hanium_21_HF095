@@ -1,0 +1,21 @@
+sleep.py 에서 뷰 함수 import 해서 사용자 정보를 얻고, 이를 DB에 저장
+
+
+id = request.session.get('id') -> id 번호 저장
+id = User.objects.get(id=request.session.get('id') -> 아이디 저장
+
+# 건드린 파일
+views.py
+sleep.py
+
+view의 Task_Manager 함수 (Line 126~145)
+if 문 제거할 경우
+통합 기능 페이지에 접속하자마자 insert가 됨
+
+if 문 추가 이후 : 졸음 감지해도 insert가 안됨
+
+sleep.py
+# timezone 함수 : django 내장 메소드, settings.py 에 저장된 timezone 시간이 입력됨
+# 기존에는 어디 시간인지는 모르겠는데 어쨋든 한국 시간은 아니었음
+D_time 변수(전역변수) Line 10
+get_sleep 함수 (Line 539 ~ 546)

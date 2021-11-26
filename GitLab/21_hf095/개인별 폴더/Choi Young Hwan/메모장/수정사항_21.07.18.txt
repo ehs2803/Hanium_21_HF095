@@ -1,0 +1,42 @@
+금일 진행상황 정리
+setting.py
+DATABASE 수정 - mysql 연동되도록 수정 완료
+
+model.py DB Table 추가
+
+연동은 완료 되었으나 서버가 존재 하지 않아 원격지에서의 연동 불가능.
+아직 로컬에서만 가능함. - AWS 서버 개설 이후 가능
+
+DB - 다이어그램 초안 img 폴더에 추가 예정
+
+회원가입 성공 시 해당 화면에 머물러있음
+로그아웃을 눌러도 로그아웃이 되는게 아니라, 그냥 페이지 이동만 하고있음
+
+제약없이 튜플 삭제 가능하게 하는 쿼리문
+set sql_safe_updates=0;
+
+signup.html
+사용자의 이름 입력 부분 추가
+
+
+views.py
+class Todo_List(generic.TemplateView):
+    def get(self, request, *args, **kwargs):
+        template_name = './templates/Drowsiness.html'
+        daily_todo = Todo_List.objects.all()
+        return render(request, template_name, {"daily_todo": daily_todo})
+
+수정된 파일
+models.py
+signup.html
+views.py
+settins.py
+TaskManager/migrations/0001_initial.py 파일 추가
+TaskManager/migrations/0002_auto_20210718_2220.py 파일 추가
+
+py manage.py makemigrations
+py manage.py migrate
+
+py manage.py createsuperuser
+
+DB 연동 성공.

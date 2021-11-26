@@ -1,0 +1,102 @@
+{% load static %}
+<head>
+    <title>게시물 수정 - {{post.title}}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mains.css' %}" />
+</head>
+
+
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="{% url 'index' %}" class="logo">Task Manager</a>
+
+				{% if user %}
+				<nav class="right">
+					<a class="button alt">{{user.username}}님</a>
+					<a class="button alt" href="{% url 'logout' %}">Logout</a>
+				</nav>
+				{% else %}
+				<nav class="right">
+					<a class="button alt" href="login" >Log in</a>
+				</nav>
+				{% endif %}
+			</header>
+
+        <!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="{% url 'freeboard' %}">게시판</a></li>
+					<li><a href="{% url 'questionboard' %}">Q & A</a></li>
+					<li><a href="{% url 'mypage' %}">마이페이지</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="#" class="button fit">Login</a></li>
+				</ul>
+			</nav>
+
+<div class="masthead ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-xs-10 mx-auto">
+                <br>
+                <h1 class="panel-title text-center">게시물 수정</h1>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="title">
+                            <h4>제목 작성</h4>
+                        </label>
+                        <input name="title" id="title" type="text" class="form-control form-control-lg input-block" value="{{post.title}}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="contents">
+                            <h4>내용 작성</h4>
+                        </label>
+                        <textarea cols="10" rows="20" id="contents" name="contents" class="form-control form-control-lg input-block">{{post.contents}}</textarea>
+                    </div>
+                    <br><br>
+                    <button type="button" class="btn btn-lg btn-outline-dark" onclick="location.href = '/questionboard_post/{{post.id}}'">이전</button>
+                    <button type="button" class="btn btn-lg btn-outline-success" style="float:right;" data-toggle="modal" data-target="#exampleModalCenter">저장</button>
+                    <!-- 게시물 수정 -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLongTitle">게시물 저장</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>게시물을 저장하시겠습니까?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-lg btn-success">저장</button>
+                                    <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!--base.html 에 있었던 것-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!--index.html 에 있었던 것-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/skel.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <script src="{% static 'js/mains.js' %}"></script>

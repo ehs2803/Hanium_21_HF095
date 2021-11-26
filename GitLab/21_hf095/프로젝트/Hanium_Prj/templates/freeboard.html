@@ -1,0 +1,118 @@
+{% load static %}
+<head>
+    <title>자유게시판</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mains.css' %}" />
+</head>
+
+
+<!-- FreeBoard-->
+<body>
+
+
+
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="{% url 'index' %}" class="logo">Task Manager</a>
+
+				{% if user %}
+				<nav class="right">
+					<a class="button alt">{{user.username}}님</a>
+					<a class="button alt" href="{% url 'logout' %}">Logout</a>
+				</nav>
+				{% else %}
+				<nav class="right">
+					<a class="button alt" href="login" >Log in</a>
+				</nav>
+				{% endif %}
+			</header>
+
+        <!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="{% url 'freeboard' %}">게시판</a></li>
+					<li><a href="{% url 'questionboard' %}">Q & A</a></li>
+					<li><a href="{% url 'mypage' %}">마이페이지</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="#" class="button fit">Login</a></li>
+				</ul>
+			</nav>
+
+
+<div class="masthead ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 mx-auto">
+                <br>
+                <h1 class="panel-title">&nbsp;자유게시판 </h1>
+
+                <table class="table table-hover">
+                    <thead style="white-space:nowrap;">
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr style="white-space:nowrap;" onclick="location.href = '/freeboard_post/{{post.id}}'">
+                            <th>{{post.id}}</th>
+                            <th>{{post.title}}</th>
+                            <td>{{post.username}}</td>
+                            <td>{{post.registered_date}}</td>
+                            <td>{{post.hits}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {% if user %}
+                <a class="btn btn-lg btn-outline-dark" style="text-decoration-line: none; float: right;" href="/freeboard_writing"><i class="fas fa-pen"></i>&nbsp;글쓰기</a>
+                {% else %}
+                <a class="btn btn-lg btn-outline-dark" style="text-decoration-line: none; float: right;" href="/login"><i class="fas fa-pen"></i>&nbsp;글쓰기</a>
+                {% endif %}
+                <br><br><br>
+                <div class="row">
+                    <div class="col">
+                        <ul class="pagination pagination-lg justify-content-center">
+                            <!-- 이전 페이지가 있는 경우 -->
+                            {% if posts.has_previous %}
+                            <li class="page-item"><a class="page-link" style="border-color: lightgray; color:black;" href="?p={{posts.previous_page_number}}"><i ><img src="{% static 'img/prev_page.png' %}" style="width:18px"></i></a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link disabled" style="border-color: lightgray; color:gray;" href="#"><i ><img src="{% static 'img/prev_page.png' %}" style="width:18px"></i></a></li>
+                            {% endif %}
+                            <!--현재 페이지 수 -->
+                            <li class="page-item active"><a class="page-link" style="text-decoration-line: none; border-color: lightgray; background-color: white; color:black;">{{posts.number}}/{{posts.paginator.num_pages}}</a></li>
+                            <!-- 다음 페이지가 있는 경우 -->
+                            {% if posts.has_next %}
+                            <li class="page-item"><a class="page-link" style="border-color: lightgray; color:black;" href="?p={{posts.next_page_number}}"><i ><img src="{% static 'img/next_page.png' %}" style="width:18px"></i></a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link disabled" style="border-color: lightgray; color:gray;" href="#"><i ><img src="{% static 'img/next_page.png' %}" style="width:18px"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+			<script src="{% static 'js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'js/skel.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/mains.js' %}"></script>
+
+</body>
+
+

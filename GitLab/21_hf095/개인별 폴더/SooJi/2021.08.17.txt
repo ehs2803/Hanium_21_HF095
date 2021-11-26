@@ -1,0 +1,38 @@
+test.html 페이지에 todolist 구현 -> 월별 검색 기능은 다른 페이지에 만들 예정
+ - 시간 및 날짜 삽입,, 완료 미완료 분리, 월별 데이터 조회 
+
+======================================================================
+CREATE TABLE `todo_list` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `content` text,
+  `reg_time` varchar(150),
+  `reg_date` varchar(150),
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `todo_list_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `complete_list` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `content` text,
+  `END_DATE` varchar(150),
+  `END_TIME` varchar(150),
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `complete_list_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+======================================================================
+- models.py 
+  132~153
+
+- url
+  57~62
+
+- view.py
+  from datetime import datetime 추가
+  458~548

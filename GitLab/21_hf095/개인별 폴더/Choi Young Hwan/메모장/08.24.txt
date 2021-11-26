@@ -1,0 +1,31 @@
+# 개발
+ㅁ 랭킹 게시판 여부
+
+ㅁ 프론트엔드
+진행상황 지속 보고 받을 예정
+
+ㅁ 백엔드
+1. AWS 서버 배포
+2. 월간 일정 관리 기능 - 오수지 개인 폴더에 뷰와 html 존재
+
+# 보고서
+사진 자료 필요
+장점
+기타 사항
+작품 개발 측면 문제점 및 해결
+
+# 추가 수집 자료
+안구 건조증 예방 관련 자료
+졸음 방지 관련 자료
+
+## Django Channels AWS EC2 배포 ## 
+# Nginx, Daphne, SSL
+Nginx, uwsgi, SSL 완료
+Daphne 만 설정하면 됨
+https://victorydntmd.tistory.com/265
+
+# requirements.txt
+데탑 패키지 사용
+
+# redis server 설치
+sudo apt-get install redis-server

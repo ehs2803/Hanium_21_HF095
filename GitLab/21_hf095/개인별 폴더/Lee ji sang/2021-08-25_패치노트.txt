@@ -1,0 +1,3 @@
+여태 templates 수정한것
+
+mian2.css는 static 폴더에 css폴더에 넣으면됨
